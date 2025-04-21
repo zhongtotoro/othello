@@ -9,7 +9,25 @@
 }
 
 .board {
+  display: flex;
+  flex-flow: row wrap;
   width: 640px;
   height: 640px;
   background-color: rgb(2 71 48);
+}
+
+.cell {
+  width: 80px;
+  height: 80px;
+  border: 1px solid black;
+}
+
+.stone {
+  width: 56px;
+  height: 56px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: black;
+  border-radius: 56px;
 }
