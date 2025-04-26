@@ -16,22 +16,19 @@ export default function Home() {
   ]);
   const [turnColor, setTurnColor] = useState(1);
 
-  const clickhundler = (x: number, y: number) => {
+  const clickHundler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
     newBoard[y][x] = turnColor;
     setBoard(newBoard);
-    if (turnColor === 1) {
-      setTurnColor(2);
-    } else {
-      setTurnColor(1);
-    }
+
+    setTurnColor(turnColor === 1 ? 2 : 1);
   };
   return (
     <div className={styles.container}>
       <div className={styles.board}>
         {board.map((row, y) =>
           row.map((color, x) => (
-            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickhundler(x, y)}>
+            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHundler(x, y)}>
               {board[y][x] !== 0 && (
                 <div
                   className={styles.stone}
