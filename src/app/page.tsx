@@ -4,26 +4,33 @@ import { useState } from 'react';
 import styles from './page.module.css';
 export default function Home() {
   const [board, setBoard] = useState([
-    [1, 2, 1, 1, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [turnColor, setTurnColor] = useState(1);
 
   const clickHundler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
 
-    if (board[y + 1] !== undefined && board[y + 1][x] === 3 - turnColor) {
-      newBoard[y][x] = turnColor;
-      setTurnColor(3 - turnColor);
+    let number = 0;
+
+    while (number < 8) {
+      number += 1;
+      if (board[y + number] !== undefined && board[y + number][x] === 3 - turnColor) {
+        break;
+      }
+      number++;
+
+      setBoard(newBoard);
     }
-    setBoard(newBoard);
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.board}>
