@@ -8,9 +8,9 @@ export default function Home() {
     [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 2, 0],
+    [0, 2, 0, 2, 0, 1, 2, 0],
+    [0, 1, 0, 2, 0, 0, 1, 0],
     [0, 0, 0, 1, 2, 0, 0, 0],
   ]);
   const [turnColor, setTurnColor] = useState(1);
@@ -18,17 +18,22 @@ export default function Home() {
   const clickHundler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
 
-    let number = 0;
+    let number = 1;
 
     while (number < 8) {
       number += 1;
-      if (board[y + number] !== undefined && board[y + number][x] === 3 - turnColor) {
+      if (board[y + number] !== undefined && board[y + number][x] === turnColor) {
+        console.log(number);
         break;
       }
-      number++;
-
-      setBoard(newBoard);
     }
+
+    for (let i = 0; i < number; i++) {
+      newBoard[y][x] = turnColor;
+      newBoard[y + i][x] = turnColor;
+    }
+    setTurnColor(3 - turnColor);
+    setBoard(newBoard);
   };
 
   return (
