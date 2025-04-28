@@ -18,23 +18,10 @@ export default function Home() {
   const clickHundler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
 
-    let number = 1;
-
-    while (number < 8) {
-      number += 1;
-      if (board[y + number] !== undefined && board[y + number][x] === 2 / turnColor) {
-        console.log(number);
-      } else {
-        if (board[y + number] !== undefined && board[y + number][x] === turnColor) {
-          break;
-        }
-      }
-    }
-
-    for (let i = 1; i < number + 1; i++) {
+    if (board[y + 1][x] === 2 / turnColor) {
       newBoard[y][x] = turnColor;
-      newBoard[y + i][x] = turnColor;
     }
+
     setTurnColor(3 - turnColor);
     setBoard(newBoard);
   };
