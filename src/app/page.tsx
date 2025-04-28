@@ -7,11 +7,11 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 2, 0],
-    [0, 2, 0, 2, 0, 1, 2, 0],
-    [0, 1, 0, 2, 0, 0, 1, 0],
-    [0, 0, 0, 1, 2, 0, 0, 0],
+    [0, 0, 2, 2, 0, 0, 0, 0],
+    [0, 0, 1, 1, 0, 0, 2, 0],
+    [0, 2, 1, 2, 0, 1, 2, 0],
+    [0, 1, 2, 2, 0, 0, 1, 0],
+    [0, 0, 1, 1, 2, 0, 0, 0],
   ]);
   const [turnColor, setTurnColor] = useState(1);
 
@@ -22,9 +22,12 @@ export default function Home() {
 
     while (number < 8) {
       number += 1;
-      if (board[y + number] !== undefined && board[y + number][x] === turnColor) {
+      if (board[y + number] !== undefined && board[y + number][x] === 2 / turnColor) {
         console.log(number);
-        break;
+      } else {
+        if (board[y + number] !== undefined && board[y + number][x] === turnColor) {
+          break;
+        }
       }
     }
 
