@@ -31,7 +31,7 @@ export default function Home() {
       }
     }
 
-    for (let i = 0; i < number; i++) {
+    for (let i = 1; i < number + 1; i++) {
       newBoard[y][x] = turnColor;
       newBoard[y + i][x] = turnColor;
     }
