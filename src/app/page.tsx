@@ -5,12 +5,12 @@ import styles from './page.module.css';
 export default function Home() {
   const [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 2, 0, 0, 0],
-    [0, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 2, 1, 1, 2, 2, 1, 1],
+    [1, 2, 1, 1, 2, 1, 2, 2],
+    [0, 2, 2, 1, 2, 0, 0, 0],
+    [0, 1, 1, 2, 1, 0, 0, 0],
+    [1, 2, 2, 1, 1, 1, 2, 1],
+    [2, 2, 1, 2, 1, 2, 1, 2],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [turnColor, setTurnColor] = useState(1);
@@ -45,7 +45,6 @@ export default function Home() {
       //自分と同じ色があり、かつ、一枚でも違う色があれば
       for (let i = 1; i <= updif; i++) {
         newBoard[y - i][x] = turnColor; //ひっくり返す
-        console.log(y, x);
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
     } //↑検証終わり*/
@@ -79,7 +78,7 @@ export default function Home() {
     let rightdif = 0; //→検証左における動く
     let rightsame = 0;
     while (true) {
-      if (board[x + rightdif + 1] === undefined || board[y][x + rightdif + 1] === 0) {
+      if (board[y][x + rightdif + 1] === undefined || board[y][x + rightdif + 1] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
 
@@ -105,7 +104,7 @@ export default function Home() {
     let leftdif = 0; //←検証、右における、動いた！！
     let leftsame = 0;
     while (true) {
-      if (board[x - leftdif - 1] === undefined || board[y][x - leftdif - 1] === 0) {
+      if (board[y][x - leftdif - 1] === undefined || board[y][x - leftdif - 1] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
 
@@ -133,17 +132,16 @@ export default function Home() {
 
     while (true) {
       if (
-        board[y + rdowndif + 1][x + rdowndif + 1] === undefined ||
+        board[y + rdowndif + 1] === undefined ||
         board[y + rdowndif + 1][x + rdowndif + 1] === 0
       ) {
         break; //盤外か空きマスだったら調査終わり
       }
-
       if (board[y + rdowndif + 1][x + rdowndif + 1] === turnColor) {
         rdownsame += 1;
+        console.log(333);
         break; //自分と同じ色を見つけたら調査終わり
       }
-
       if (board[y + rdowndif + 1][x + rdowndif + 1] === 2 / turnColor) {
         rdowndif += 1;
         continue; //違う色だったら調査続行
@@ -162,7 +160,7 @@ export default function Home() {
     let ldownsame = 0;
     while (true) {
       if (
-        board[y + ldowndif + 1][x - ldowndif - 1] === undefined ||
+        board[y + ldowndif + 1] === undefined ||
         board[y + ldowndif + 1][x - ldowndif - 1] === 0
       ) {
         break; //盤外か空きマスだったら調査終わり
@@ -190,10 +188,7 @@ export default function Home() {
     let lupdif = 0; //↖↖検証右下に置く動いた！！
     let lupsame = 0;
     while (true) {
-      if (
-        board[y - lupdif - 1][x - lupdif - 1] === undefined ||
-        board[y - lupdif - 1][x - lupdif - 1] === 0
-      ) {
+      if (board[y - lupdif - 1] === undefined || board[y - lupdif - 1][x - lupdif - 1] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
 
@@ -220,10 +215,7 @@ export default function Home() {
     let rupsame = 0;
     while (true) {
       //↗検証
-      if (
-        board[y - rupdif - 1][x + rupdif + 1] === undefined ||
-        board[y - rupdif - 1][x + rupdif + 1] === 0
-      ) {
+      if (board[y - rupdif - 1] === undefined || board[y - rupdif - 1][x + rupdif + 1] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
 
