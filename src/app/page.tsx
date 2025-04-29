@@ -8,7 +8,7 @@ export default function Home() {
     [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 0, 2, 0, 0, 0, 0],
     [0, 0, 2, 2, 0, 0, 0, 0],
-    [0, 0, 1, 1, 0, 0, 2, 0],
+    [0, 2, 1, 1, 0, 0, 2, 0],
     [0, 2, 1, 2, 0, 1, 2, 0],
     [0, 1, 2, 2, 0, 0, 1, 0],
     [0, 0, 1, 1, 2, 0, 0, 0],
@@ -16,13 +16,36 @@ export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
 
   const clickHundler = (x: number, y: number) => {
+    if (board[y][x] !== 0) {
+      //既に石が置いてあったらおけない
+      return;
+    }
     const newBoard = structuredClone(board);
 
-    if (board[y + 1] === undefined || board[y + 1][x] === 0) {
-      newBoard[y][x] = turnColor;
+    let dif = 0;
+    let same = 0;
+    while (true) {
+      if (board[y + dif + 1] === undefined || board[y + dif + 1][x] === 0) {
+        break; //盤外か空きマスだったら調査終わり
+      }
+
+      if (board[y + dif + 1][x] === turnColor) {
+        same += 1;
+        break; //自分と同じ色を見つけたら調査終わり
+      }
+
+      if (board[y + dif + 1][x] === 2 / turnColor) {
+        dif += 1;
+        continue; //違う色だったら調査続行
+      }
     }
-    const number = 0;
-    if (board[y + number + 1][x] === turnColor) {
+
+    if (0 < dif && 0 < same) {
+      //自分と同じ色があり、かつ、一枚でも違う色があれば
+      for (let i = 1; i <= dif; i++) {
+        newBoard[y + i][x] = turnColor; //ひっくり返す
+      }
+      newBoard[y][x] = turnColor; //はじめて新しい石が置ける
     }
 
     setTurnColor(3 - turnColor);
