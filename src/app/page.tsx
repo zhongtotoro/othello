@@ -7,8 +7,8 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 2, 2, 1, 0, 0, 0],
-    [0, 0, 1, 1, 2, 2, 0, 0],
+    [0, 0, 0, 1, 2, 0, 0, 0],
+    [0, 0, 0, 2, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -22,11 +22,10 @@ export default function Home() {
     }
     const newBoard = structuredClone(board);
 
-    let updif = 0;
+    let updif = 0; //↑検証下における動く
     let upsame = 0;
 
     while (true) {
-      //↑検証
       if (board[y - updif - 1] === undefined || board[y - updif - 1][x] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
@@ -46,14 +45,14 @@ export default function Home() {
       //自分と同じ色があり、かつ、一枚でも違う色があれば
       for (let i = 1; i <= updif; i++) {
         newBoard[y - i][x] = turnColor; //ひっくり返す
+        console.log(y, x);
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //↑検証終わり
+    } //↑検証終わり*/
 
-    let downdif = 0;
+    let downdif = 0; //↓検証、上における動く
     let downsame = 0;
     while (true) {
-      //↓検証
       if (board[y + downdif + 1] === undefined || board[y + downdif + 1][x] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
@@ -75,12 +74,11 @@ export default function Home() {
         newBoard[y + i][x] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //↓検証終わり
+    } //↓検証終わり */
 
-    let rightdif = 0;
+    let rightdif = 0; //→検証左における動く
     let rightsame = 0;
     while (true) {
-      //→検証
       if (board[x + rightdif + 1] === undefined || board[y][x + rightdif + 1] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
@@ -102,13 +100,12 @@ export default function Home() {
         newBoard[y][x + i] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //→検証終わり
+    } //→検証終わり*/
 
-    let leftdif = 0;
+    let leftdif = 0; //←検証、右における、動いた！！
     let leftsame = 0;
     while (true) {
-      //←検証
-      if (board[x - leftdif - 1] === undefined || board[y][x + leftdif - 1] === 0) {
+      if (board[x - leftdif - 1] === undefined || board[y][x - leftdif - 1] === 0) {
         break; //盤外か空きマスだったら調査終わり
       }
 
@@ -125,17 +122,16 @@ export default function Home() {
 
     if (0 < leftdif && 0 < leftsame) {
       //自分と同じ色があり、かつ、一枚でも違う色があれば
-      for (let i = 1; i <= rightdif; i++) {
+      for (let i = 1; i <= leftdif; i++) {
         newBoard[y][x - i] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //←検証終わり
+    } //←検証終わり*/
 
-    let rdowndif = 0;
+    let rdowndif = 0; //↘検証,左上における,動く
     let rdownsame = 0;
 
     while (true) {
-      //↘検証
       if (
         board[y + rdowndif + 1][x + rdowndif + 1] === undefined ||
         board[y + rdowndif + 1][x + rdowndif + 1] === 0
@@ -160,25 +156,24 @@ export default function Home() {
         newBoard[y + i][x + i] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //↘検証終わり
+    } //↘検証終わり*/
 
-    let ldowndif = 0;
-    const ldownsame = 0;
+    let ldowndif = 0; //↙検証,右上における動いた！！！
+    let ldownsame = 0;
     while (true) {
-      //↙検証
       if (
-        board[y + ldowndif + 1][x + ldowndif - 1] === undefined ||
-        board[y + ldowndif + 1][x + ldowndif - 1] === 0
+        board[y + ldowndif + 1][x - ldowndif - 1] === undefined ||
+        board[y + ldowndif + 1][x - ldowndif - 1] === 0
       ) {
         break; //盤外か空きマスだったら調査終わり
       }
 
-      if (board[y + ldowndif + 1][x + ldowndif - 1] === turnColor) {
-        rdownsame += 1;
+      if (board[y + ldowndif + 1][x - ldowndif - 1] === turnColor) {
+        ldownsame += 1;
         break; //自分と同じ色を見つけたら調査終わり
       }
 
-      if (board[y + ldowndif + 1][x + ldowndif - 1] === 2 / turnColor) {
+      if (board[y + ldowndif + 1][x - ldowndif - 1] === 2 / turnColor) {
         ldowndif += 1;
         continue; //違う色だったら調査続行
       }
@@ -190,25 +185,24 @@ export default function Home() {
         newBoard[y + i][x - i] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //↙検証終わり
+    } //↙検証終わり*/
 
-    let lupdif = 0;
+    let lupdif = 0; //↖↖検証右下に置く動いた！！
     let lupsame = 0;
     while (true) {
-      //↖↖検証
       if (
-        board[y + lupdif - 1][x + lupdif - 1] === undefined ||
-        board[y + lupdif - 1][x + lupdif - 1] === 0
+        board[y - lupdif - 1][x - lupdif - 1] === undefined ||
+        board[y - lupdif - 1][x - lupdif - 1] === 0
       ) {
         break; //盤外か空きマスだったら調査終わり
       }
 
-      if (board[y + lupdif - 1][x + lupdif - 1] === turnColor) {
+      if (board[y - lupdif - 1][x - lupdif - 1] === turnColor) {
         lupsame += 1;
         break; //自分と同じ色を見つけたら調査終わり
       }
 
-      if (board[y + lupdif - 1][x + lupdif - 1] === 2 / turnColor) {
+      if (board[y - lupdif - 1][x - lupdif - 1] === 2 / turnColor) {
         lupdif += 1;
         continue; //違う色だったら調査続行
       }
@@ -220,25 +214,25 @@ export default function Home() {
         newBoard[y - i][x - i] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //↖検証終わり
+    } //↖検証終わり*/
 
-    let rupdif = 0;
-    const rupsame = 0;
+    let rupdif = 0; //↗検証左下における、動いた！！
+    let rupsame = 0;
     while (true) {
       //↗検証
       if (
-        board[y + rupdif - 1][x + rupdif + 1] === undefined ||
-        board[y + rupdif - 1][x + rupdif + 1] === 0
+        board[y - rupdif - 1][x + rupdif + 1] === undefined ||
+        board[y - rupdif - 1][x + rupdif + 1] === 0
       ) {
         break; //盤外か空きマスだったら調査終わり
       }
 
-      if (board[y + rupdif - 1][x + rupdif + 1] === turnColor) {
-        lupsame += 1;
+      if (board[y - rupdif - 1][x + rupdif + 1] === turnColor) {
+        rupsame += 1;
         break; //自分と同じ色を見つけたら調査終わり
       }
 
-      if (board[y + rupdif - 1][x + rupdif + 1] === 2 / turnColor) {
+      if (board[y - rupdif - 1][x + rupdif + 1] === 2 / turnColor) {
         rupdif += 1;
         continue; //違う色だったら調査続行
       }
@@ -250,7 +244,7 @@ export default function Home() {
         newBoard[y - i][x + i] = turnColor; //ひっくり返す
       }
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
-    } //↗↗検証終わり
+    } //↗↗検証終わり*/
 
     setTurnColor(3 - turnColor);
     setBoard(newBoard);
