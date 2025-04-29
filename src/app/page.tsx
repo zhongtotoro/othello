@@ -18,7 +18,32 @@ export default function Home() {
   const clickHundler = (x: number, y: number) => {
     const newBoard = structuredClone(board);
 
-    if (board[y + 1][x] === 2 / turnColor) {
+    let count = 0;
+
+    // 1) 「相手色」が連続する限りカウント up
+    while (true) {
+      const ny = y + count + 1;
+      // 盤外 or 空マスなら終了（ひっくり返し不成立扱い）
+      if (board[ny][x] === undefined || board[ny][x] === 0) {
+        count = 0;
+        break;
+      }
+      // 相手色ならカウント増やして継続
+      if (board[ny][x] === 3 - turnColor) {
+        count += 1;
+        continue;
+      }
+      // 自分の色なら成立
+      if (board[ny][x] === turnColor) {
+        break;
+      }
+    }
+
+    // 2) count > 0 のときだけ裏返し
+    if (count > 0) {
+      for (let i = 1; i <= count; i++) {
+        newBoard[y + i][x] = turnColor;
+      }
       newBoard[y][x] = turnColor;
     }
 
