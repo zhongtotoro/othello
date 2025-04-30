@@ -15,6 +15,8 @@ export default function Home() {
   ]);
   const [turnColor, setTurnColor] = useState(1);
 
+  //const posscells = structuredClone(board);
+  //const posscells =
   const clickHundler = (x: number, y: number) => {
     if (board[y][x] !== 0) {
       //既に石が置いてあったらおけない
