@@ -31,3 +31,13 @@
   background-color: black;
   border-radius: 56px;
 }
+
+.kouhochi {
+  width: 56px;
+  height: 56px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: rgb(94 4 4);
+  border-radius: 56px;
+}

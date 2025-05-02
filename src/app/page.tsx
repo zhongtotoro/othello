@@ -16,7 +16,12 @@ export default function Home() {
   const [turnColor, setTurnColor] = useState(1);
 
   //const posscells = structuredClone(board);
-  //const posscells =
+  //const posscells = kouhochi
+  /*候補地を探し出す関数を作る
+  →候補地を表示
+  →候補地をクリックしたら石を置く（cliclhundlerでいいはず）
+  →ツギノ*/
+
   const clickHundler = (x: number, y: number) => {
     if (board[y][x] !== 0) {
       //既に石が置いてあったらおけない
