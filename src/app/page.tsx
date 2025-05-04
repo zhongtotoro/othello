@@ -13,15 +13,21 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  const [turnColor, setTurnColor] = useState(1);
 
-  const posscells = structuredClone(board);
-  const posscells = kouhochi;
+  const reCanSite = structuredClone(board);
+  const [canSite,setCanSite] = useState(z: number,:a: number) => {
+    reCanSite[3][4] = canSite
+  }
+
   /*候補地を探し出す関数を作る
   →候補地を表示
   →候補地をクリックしたら石を置く（cliclhundlerでいいはず）
   →ツギノ*/
 
+
+
+
+  const [turnColor, setTurnColor] = useState(1);
   const clickHundler = (x: number, y: number) => {
     if (board[y][x] !== 0) {
       //既に石が置いてあったらおけない
@@ -314,5 +320,22 @@ export default function Home() {
         )}
       </div>
     </div>
-  );
+
+    <div className={styles.container}>
+      <div className={styles.board}>
+        {board.map((row, z) =>
+          row.map((color, a) => (
+            <div className={styles.cell} key={`${z}-${a}`} >
+              (<div
+                className={styles.canSite}
+                style={{ background: color === 'red'}}
+                />)
+            </div>
+          )),
+        )}
+      </div>
+    </div>
+
+
+);
 }
