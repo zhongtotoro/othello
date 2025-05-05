@@ -21,7 +21,7 @@ export default function Home() {
 
   /*候補地を探し出す関数を作る
   →候補地を表示
-  →候補地をクリックしたら石を置く（cliclhundlerでいいはず）
+  →候補地をクリックしたら石を置く（cliclhundlerでいいはず） test
   →ツギノ*/
 
 
@@ -100,6 +100,8 @@ export default function Home() {
       setTurnColor(3 - turnColor);
     } //↓検証終わり */
 
+
+    /*ひっくり返す*/
     let rightdif = 0; //→検証左における動く
     let rightsame = 0;
     while (true) {
@@ -325,12 +327,12 @@ export default function Home() {
       <div className={styles.board}>
         {board.map((row, z) =>
           row.map((color, a) => (
-            <div className={styles.cell} key={`${z}-${a}`} >
-              (<div
-                className={styles.canSite}
-                style={{ background: color === 'red'}}
-                />)
-            </div>
+          <div className={styles.cell} key={`${z}-${a}`} >
+            (<div
+              className={styles.canSite}
+              style={{ background: color === 'red'}}
+            />)
+          </div>
           )),
         )}
       </div>
