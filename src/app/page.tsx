@@ -14,18 +14,10 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
-  const reCanSite = structuredClone(board);
-  const [canSite,setCanSite] = useState(z: number,:a: number) => {
-    reCanSite[3][4] = canSite
-  }
-
   /*候補地を探し出す関数を作る
   →候補地を表示
-  →候補地をクリックしたら石を置く（cliclhundlerでいいはず） test
+  →候補地をクリックしたら石を置く（cliclhundlerでいいはず）
   →ツギノ*/
-
-
-
 
   const [turnColor, setTurnColor] = useState(1);
   const clickHundler = (x: number, y: number) => {
@@ -99,7 +91,6 @@ export default function Home() {
       newBoard[y][x] = turnColor; //はじめて新しい石が置ける
       setTurnColor(3 - turnColor);
     } //↓検証終わり */
-
 
     /*ひっくり返す*/
     let rightdif = 0; //→検証左における動く
@@ -306,6 +297,23 @@ export default function Home() {
   };
 
   return (
+    /*<div className={styles.container}>
+      <div className={styles.board}>
+        {board.map((row, y) =>
+          row.map((color, x) => (
+            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHundler(x, y)}>
+              {board[y][x] !== 0 && (
+                <div
+                  className={styles.stone}
+                  style={{ background: color === 1 ? '#000' : '#FFF' }}
+                />
+              )}
+            </div>
+          )),
+        )}
+      </div>
+    </div>*/
+
     <div className={styles.container}>
       <div className={styles.board}>
         {board.map((row, y) =>
@@ -322,22 +330,5 @@ export default function Home() {
         )}
       </div>
     </div>
-
-    <div className={styles.container}>
-      <div className={styles.board}>
-        {board.map((row, z) =>
-          row.map((color, a) => (
-          <div className={styles.cell} key={`${z}-${a}`} >
-            (<div
-              className={styles.canSite}
-              style={{ background: color === 'red'}}
-            />)
-          </div>
-          )),
-        )}
-      </div>
-    </div>
-
-
-);
+  );
 }
