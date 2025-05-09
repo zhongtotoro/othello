@@ -322,7 +322,7 @@ export default function Home() {
               {board[y][x] !== 0 && (
                 <div
                   className={styles.stone}
-                  style={{ background: color === 1 ? '#000' : '#FFF' }}
+                  style={if(turnColor === 1){ style= {background-color:=== "#000"}};else if(turnColor === 2){ color === '#FFF' };else{ color === 'red' };}
                 />
               )}
             </div>
@@ -332,3 +332,7 @@ export default function Home() {
     </div>
   );
 }
+//3番目のturnColorをredにする
+//候補地：今までの関数でできる
+//その座標をまとめてゲット
+//全部表示
