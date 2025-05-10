@@ -14,19 +14,35 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
-  /*候補地を探し出す関数を作る
+  const [turnColor, setTurnColor] = useState(1);
+  const clickHundler = (x: number, y: number) => {
+    /*候補地を探し出す関数を作る
   →候補地を表示
   →候補地をクリックしたら石を置く（cliclhundlerでいいはず）
   →ツギノ*/
 
-  const [turnColor, setTurnColor] = useState(1);
-  const clickHundler = (x: number, y: number) => {
+    /*turnColor の駒を探す
+  全探索
+  if board座標 === turncolor
+  座標全部集めるリスト？
+  一個ずつ座標取り出す
+  その座標から置ける場所八方向検索
+  一方向に一個のはず→
+  置ける[y][x]をゲット
+  [y][x]全部リストに収納
+  一個ずつ取り出して
+  [y][x] に候補地を置く
+  [y][x]をturnColor === 3(red)にする
+   */
+
+    //石を置く
     if (board[y][x] !== 0) {
       //既に石が置いてあったらおけない
       return;
     }
     const newBoard = structuredClone(board);
 
+    //石を置く
     let updif = 0; //↑検証下における動く
     let upsame = 0;
 
@@ -297,23 +313,6 @@ export default function Home() {
   };
 
   return (
-    /*<div className={styles.container}>
-      <div className={styles.board}>
-        {board.map((row, y) =>
-          row.map((color, x) => (
-            <div className={styles.cell} key={`${x}-${y}`} onClick={() => clickHundler(x, y)}>
-              {board[y][x] !== 0 && (
-                <div
-                  className={styles.stone}
-                  style={{ background: color === 1 ? '#000' : '#FFF' }}
-                />
-              )}
-            </div>
-          )),
-        )}
-      </div>
-    </div>*/
-
     <div className={styles.container}>
       <div className={styles.board}>
         {board.map((row, y) =>
@@ -322,7 +321,7 @@ export default function Home() {
               {board[y][x] !== 0 && (
                 <div
                   className={styles.stone}
-                  style={if(turnColor === 1){ style= {background-color:=== "#000"}};else if(turnColor === 2){ color === '#FFF' };else{ color === 'red' };}
+                  style={{ background: color === 1 ? '#000' : '#FFF' }}
                 />
               )}
             </div>
