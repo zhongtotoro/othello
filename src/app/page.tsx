@@ -16,6 +16,7 @@ export default function Home() {
 
   const [turnColor, setTurnColor] = useState(1);
   const clickHundler = (x: number, y: number) => {
+    const newBoard = structuredClone(board);
     /*turnColor の駒を探す*/
     let list: number[] = [];
     list = [[3][3], [4][4]];
@@ -32,23 +33,52 @@ export default function Home() {
         }
 
     const length: number = list.length;
-    for (let c: number = 0; c < length; c++)
-      /*一個ずつ座標取り出す
-  その座標から置ける場所八方向検索
-  一方向に一個のはず→
-  置ける[y][x]をゲット
-  [y][x]全部リストに収納
-  一個ずつ取り出して
-  [y][x] に候補地を置く
-  [y][x]をturnColor === 3(red)にする
-   */
+    //if length > 0必要かも
+    for (let c: number = 0; c < length; c++) console.log(list[c]); //一個ずつ座標取り出す
+    //表示する条件：進行方向に空きマスがある||自分と同じ色がない||違う色しかない←→undefineであればbreak何もしない、自分と同じ色があればbreak,違う色だったら調査続行、空きますがあればbreak
 
-      //石を置く
-      if (board[y][x] !== 0) {
-        //既に石が置いてあったらおけない&& board[y][x] === 2
-        return;
+    // その座標から置ける場所八方向検索
+    let cupdif = 0; //↑検証下における動く
+    let current = 0;
+
+    while (true) {
+      if (board[y - cupdif - 1] === undefined || board[y - cupdif - 1][x] === turnColor) {
+        console.log();
+        break; //盤外か同じ色だったら調査終わり
       }
-    const newBoard = structuredClone(board);
+
+      if (board[y - cupdif - 1][x] === 0) {
+        current += 1;
+        console.log();
+        break; //空きマスを見つけたら調査終わり
+      }
+
+      if (board[y - cupdif - 1][x] === 2 / turnColor) {
+        cupdif += 1;
+        console.log();
+        continue; //違う色だったら調査続行
+      }
+    }
+
+    if (0 < cupdif && 0 < current) {
+      console.log();
+      //自分と違う色があり、かつ、空きますがあれば
+      console.log('1-5');
+      newBoard[y][x] = 3; //はじめて候補地
+    }
+    // 一方向に一個のはず→
+    // 置ける[y][x]をゲット
+    // [y][x]全部リストに収納
+    // 一個ずつ取り出して
+    // [y][x] に候補地を置く
+    // [y][x]をturnColor === 3(red)にする
+
+    //石を置く
+    if (board[y][x] !== 0) {
+      //既に石が置いてあったらおけない&& board[y][x] === 2
+      return;
+    }
+    //const newBoard = structuredClone(board);
 
     //石を置く
     let updif = 0; //↑検証下における動く
