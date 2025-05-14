@@ -16,16 +16,24 @@ export default function Home() {
 
   const [turnColor, setTurnColor] = useState(1);
   const clickHundler = (x: number, y: number) => {
-    /*候補地を探し出す関数を作る
-  →候補地を表示
-  →候補地をクリックしたら石を置く（cliclhundlerでいいはず）
-  →ツギノ*/
+    /*turnColor の駒を探す*/
+    let list: number[] = [];
+    list = [[3][3], [4][4]];
 
-    /*turnColor の駒を探す
-  全探索
+    /*全探索
   if board座標 === turncolor
-  座標全部集めるリスト？
-  一個ずつ座標取り出す
+  座標全部集めるリスト？*/
+    // let a: number = 0;
+    // let b: number = 0;
+    for (let a: number = 0; a < 8; a++)
+      for (let b: number = 0; b < 8; b++)
+        if (board[a][b] === turnColor) {
+          list.push([a][b]);
+        }
+
+    const length: number = list.length;
+    for (let c: number = 0; c < length; c++)
+      /*一個ずつ座標取り出す
   その座標から置ける場所八方向検索
   一方向に一個のはず→
   置ける[y][x]をゲット
@@ -35,11 +43,11 @@ export default function Home() {
   [y][x]をturnColor === 3(red)にする
    */
 
-    //石を置く
-    if (board[y][x] !== 0) {
-      //既に石が置いてあったらおけない
-      return;
-    }
+      //石を置く
+      if (board[y][x] !== 0) {
+        //既に石が置いてあったらおけない&& board[y][x] === 2
+        return;
+      }
     const newBoard = structuredClone(board);
 
     //石を置く
@@ -334,4 +342,3 @@ export default function Home() {
 //3番目のturnColorをredにする
 //候補地：今までの関数でできる
 //その座標をまとめてゲット
-//全部表示
